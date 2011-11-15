@@ -28,7 +28,7 @@ module Jekyll
 
       self.read_yaml(File.join(base, '_layouts'), type + '.html')
 
-      year, month, day = dir.split('/')
+      root, blog, year, month, day = dir.split('/')
       self.data['year'] = year.to_i
       month and self.data['month'] = month.to_i
       day and self.data['day'] = day.to_i
@@ -44,6 +44,8 @@ module Jekyll
     #
     #   Returns nothing
     def write_archive( dir, type )
+        basedir = self.config['archive_dir'] || 'blog'
+        dir = File.join(basedir, dir)
         archive = Archive.new( self, self.source, dir, type )
         archive.render( self.layouts, site_payload )
         archive.write( self.dest )
