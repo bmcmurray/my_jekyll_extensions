@@ -51,7 +51,7 @@ module Jekyll
       if self.layouts.key? 'tag_index'
         self.tags.keys.each do |tag|
           dir = self.config['tag_dir'] || 'tags'
-          tag_filename = tag.gsub(" ", "-")
+          tag_filename = tag.gsub(" ", "-").downcase
           self.write_tag_index(File.join(dir, tag_filename), tag)
         end
       end
