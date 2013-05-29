@@ -101,6 +101,7 @@ module Jekyll
         
         if post_type_list.size > 1 and site.layouts.key? layout_list
           write_posttype_list(site, dir, post_type_list, post_type)
+          site.post_types[post_type] = post_type_list
         end
       end
     end
@@ -136,6 +137,15 @@ module Jekyll
       
       files
     end
+  end
+
+  class Site
+    attr_accessor :post_types
+    
+  end
+
+  AOP.after(Site, :reset) do |site_instance, result, args|
+    site_instance.post_types = {}
   end
 
 end
